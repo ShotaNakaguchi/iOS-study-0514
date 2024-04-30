@@ -9,18 +9,246 @@ reorder rootPrims = ["Root", "GridMaterial"]
 
 def Xform "Root"
 {
-    reorder nameChildren = ["SunnyTune", "GridMaterial", "Sphere"]
+    reorder nameChildren = ["SunnyTune", "SkyMaterial"]
     rel material:binding = None (
         bindMaterialAs = "weakerThanDescendants"
     )
 
     def "SunnyTune" (
         active = true
-        prepend references = @SunnyTune.usdz@
+        references = @SunnyTune.usdz@
     )
     {
         float3 xformOp:scale = (0.3, 0.3, 0.3)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "Dome"
+        {
+            over "Dome_geometry" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </Root/SkyMaterial> (
+                    bindMaterialAs = "weakerThanDescendants"
+                )
+            }
+        }
+    }
+
+    def Material "SkyMaterial"
+    {
+        float inputs:Time = -1 (
+            colorSpace = ""
+            customData = {
+                dictionary realitykit = {
+                    float2 positionInSubgraph = (-986.64075, 791.68)
+                    float2 sizeInSubgraph = (99, 53)
+                    int stackingOrderInSubgraph = 442
+                }
+            }
+        )
+        token outputs:mtlx:surface.connect = </Root/SkyMaterial/UnlitSurface.outputs:out>
+        token outputs:realitykit:vertex
+        token outputs:surface.connect = </Root/SkyMaterial/UsdPreviewSurface.outputs:surface>
+        float2 ui:nodegraph:realitykit:subgraphOutputs:pos = (289.46094, 238.40625)
+        float2 ui:nodegraph:realitykit:subgraphOutputs:size = (182, 99)
+        int ui:nodegraph:realitykit:subgraphOutputs:stackingOrder = 189
+
+        def Shader "UsdPreviewSurface" (
+            active = false
+        )
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            token outputs:surface
+        }
+
+        def Shader "UnlitSurface"
+        {
+            uniform token info:id = "ND_realitykit_unlit_surfaceshader"
+            bool inputs:applyPostProcessToneMap
+            color3f inputs:color.connect = </Root/SkyMaterial/Mix_4.outputs:out>
+            bool inputs:hasPremultipliedAlpha
+            float inputs:opacity
+            float inputs:opacityThreshold
+            token outputs:out
+            float2 ui:nodegraph:node:pos = (-14.96875, 262.82422)
+            float2 ui:nodegraph:node:size = (195, 181)
+            int ui:nodegraph:node:stackingOrder = 189
+        }
+
+        def Shader "MorningColorTop"
+        {
+            uniform token info:id = "ND_constant_color3"
+            color3f inputs:value = (0, 0.9914394, 1) (
+                colorSpace = "srgb_texture"
+            )
+            color3f outputs:out
+            float2 ui:nodegraph:node:pos = (-1046.2109, -6.375)
+            float2 ui:nodegraph:node:size = (193, 53)
+            int ui:nodegraph:node:stackingOrder = 450
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
+        }
+
+        def Shader "Mix"
+        {
+            uniform token info:id = "ND_mix_color3"
+            color3f inputs:bg.connect = </Root/SkyMaterial/MorningColorBottom.outputs:out>
+            color3f inputs:fg.connect = </Root/SkyMaterial/MorningColorTop.outputs:out>
+            float inputs:mix.connect = </Root/SkyMaterial/SmoothStep_2.outputs:out>
+            color3f outputs:out
+            float2 ui:nodegraph:node:pos = (-756.08984, 62.648438)
+            float2 ui:nodegraph:node:size = (109, 145)
+            int ui:nodegraph:node:stackingOrder = 402
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:bg"]
+        }
+
+        def Shader "Mix_1"
+        {
+            uniform token info:id = "ND_mix_color3"
+            color3f inputs:bg.connect = </Root/SkyMaterial/EveningColorBottom.outputs:out>
+            color3f inputs:fg.connect = </Root/SkyMaterial/EveningColorTop.outputs:out>
+            float inputs:mix.connect = </Root/SkyMaterial/SmoothStep_2.outputs:out>
+            color3f outputs:out
+            float2 ui:nodegraph:node:pos = (-749.7539, 292.34375)
+            float2 ui:nodegraph:node:size = (109, 145)
+            int ui:nodegraph:node:stackingOrder = 374
+        }
+
+        def Shader "Mix_3"
+        {
+            uniform token info:id = "ND_mix_color3"
+            color3f inputs:bg.connect = </Root/SkyMaterial/Mix_1.outputs:out>
+            color3f inputs:fg.connect = </Root/SkyMaterial/Mix.outputs:out>
+            float inputs:mix.connect = </Root/SkyMaterial/SmoothStep.outputs:out>
+            color3f outputs:out
+            float2 ui:nodegraph:node:pos = (-528.21094, 85.23828)
+            float2 ui:nodegraph:node:size = (109, 145)
+            int ui:nodegraph:node:stackingOrder = 397
+        }
+
+        def Shader "SmoothStep"
+        {
+            uniform token info:id = "ND_smoothstep_float"
+            float inputs:in.connect = </Root/SkyMaterial.inputs:Time>
+            float inputs:low
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-734.59766, 745.0508)
+            float2 ui:nodegraph:node:size = (129, 145)
+            int ui:nodegraph:node:stackingOrder = 416
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:high"]
+        }
+
+        def Shader "Mix_4"
+        {
+            uniform token info:id = "ND_mix_color3"
+            color3f inputs:bg.connect = </Root/SkyMaterial/Mix_2.outputs:out>
+            color3f inputs:fg.connect = </Root/SkyMaterial/Mix_3.outputs:out>
+            float inputs:mix.connect = </Root/SkyMaterial/SmoothStep_1.outputs:out>
+            color3f outputs:out
+            float2 ui:nodegraph:node:pos = (-363.39453, 367.1914)
+            float2 ui:nodegraph:node:size = (109, 145)
+            int ui:nodegraph:node:stackingOrder = 326
+        }
+
+        def Shader "Mix_2"
+        {
+            uniform token info:id = "ND_mix_color3"
+            color3f inputs:bg.connect = </Root/SkyMaterial/NightColorBottom.outputs:out>
+            color3f inputs:fg.connect = </Root/SkyMaterial/NightColorTop.outputs:out>
+            float inputs:mix.connect = </Root/SkyMaterial/SmoothStep_2.outputs:out>
+            color3f outputs:out
+            float2 ui:nodegraph:node:pos = (-739.7617, 490.10156)
+            float2 ui:nodegraph:node:size = (109, 145)
+            int ui:nodegraph:node:stackingOrder = 326
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:mix"]
+        }
+
+        def Shader "NightColorBottom"
+        {
+            uniform token info:id = "ND_constant_color3"
+            color3f inputs:value = (0, 0, 0) (
+                colorSpace = "srgb_texture"
+            )
+            color3f outputs:out
+            float2 ui:nodegraph:node:pos = (-1031.1875, 539.78906)
+            float2 ui:nodegraph:node:size = (199, 53)
+            int ui:nodegraph:node:stackingOrder = 445
+        }
+
+        def Shader "NightColorTop"
+        {
+            uniform token info:id = "ND_constant_color3"
+            color3f inputs:value = (0.57919407, 0.12801445, 0.57268614) (
+                colorSpace = "srgb_texture"
+            )
+            color3f outputs:out
+            float2 ui:nodegraph:node:pos = (-1035.5703, 450.1289)
+            float2 ui:nodegraph:node:size = (176, 53)
+            int ui:nodegraph:node:stackingOrder = 446
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out"]
+        }
+
+        def Shader "EveningColorBottom"
+        {
+            uniform token info:id = "ND_constant_color3"
+            color3f inputs:value = (1, 0.14913142, 0) (
+                colorSpace = "srgb_texture"
+            )
+            color3f outputs:out
+            float2 ui:nodegraph:node:pos = (-1039.3516, 346.1836)
+            float2 ui:nodegraph:node:size = (214, 53)
+            int ui:nodegraph:node:stackingOrder = 447
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out", "outputs:out"]
+        }
+
+        def Shader "EveningColorTop"
+        {
+            uniform token info:id = "ND_constant_color3"
+            color3f inputs:value = (1, 0.5763723, 0) (
+                colorSpace = "srgb_texture"
+            )
+            color3f outputs:out
+            float2 ui:nodegraph:node:pos = (-1039.8594, 241.7539)
+            float2 ui:nodegraph:node:size = (191, 53)
+            int ui:nodegraph:node:stackingOrder = 448
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["outputs:out", "outputs:out"]
+        }
+
+        def Shader "MorningColorBottom"
+        {
+            uniform token info:id = "ND_constant_color3"
+            color3f inputs:value = (0.016804177, 0.198351, 1) (
+                colorSpace = "srgb_texture"
+            )
+            color3f outputs:out
+            float2 ui:nodegraph:node:pos = (-1037.9219, 128.23438)
+            float2 ui:nodegraph:node:size = (216, 53)
+            int ui:nodegraph:node:stackingOrder = 449
+        }
+
+        def Shader "SmoothStep_1"
+        {
+            uniform token info:id = "ND_smoothstep_float"
+            float inputs:high = 0
+            float inputs:in.connect = </Root/SkyMaterial.inputs:Time>
+            float inputs:low = -1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-627.3281, 948.3672)
+            float2 ui:nodegraph:node:size = (141, 145)
+            int ui:nodegraph:node:stackingOrder = 418
+            string[] ui:nodegraph:realitykit:node:attributesShowingChildren = ["inputs:high"]
+        }
+
+        def Shader "SmoothStep_2"
+        {
+            uniform token info:id = "ND_smoothstep_float"
+            float inputs:high
+            float inputs:low = -1
+            float outputs:out
+            float2 ui:nodegraph:node:pos = (-1557.3452, 687.87665)
+            float2 ui:nodegraph:node:size = (145, 145)
+            int ui:nodegraph:node:stackingOrder = 444
+        }
     }
 }
 
