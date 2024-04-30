@@ -10,7 +10,6 @@
 		0A5DF8D02BE0AACA007531E7 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 0A5DF8CF2BE0AACA007531E7 /* RealityKitContent */; };
 		0A5DF8D22BE0AACA007531E7 /* iOS_study_0514App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5DF8D12BE0AACA007531E7 /* iOS_study_0514App.swift */; };
 		0A5DF8D42BE0AACA007531E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5DF8D32BE0AACA007531E7 /* ContentView.swift */; };
-		0A5DF8D62BE0AACA007531E7 /* ImmersiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5DF8D52BE0AACA007531E7 /* ImmersiveView.swift */; };
 		0A5DF8D82BE0AACB007531E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A5DF8D72BE0AACB007531E7 /* Assets.xcassets */; };
 		0A5DF8DB2BE0AACB007531E7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A5DF8DA2BE0AACB007531E7 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -20,7 +19,6 @@
 		0A5DF8CE2BE0AACA007531E7 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		0A5DF8D12BE0AACA007531E7 /* iOS_study_0514App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_study_0514App.swift; sourceTree = "<group>"; };
 		0A5DF8D32BE0AACA007531E7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		0A5DF8D52BE0AACA007531E7 /* ImmersiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveView.swift; sourceTree = "<group>"; };
 		0A5DF8D72BE0AACB007531E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A5DF8DA2BE0AACB007531E7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0A5DF8DC2BE0AACB007531E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -60,7 +58,6 @@
 			children = (
 				0A5DF8D12BE0AACA007531E7 /* iOS_study_0514App.swift */,
 				0A5DF8D32BE0AACA007531E7 /* ContentView.swift */,
-				0A5DF8D52BE0AACA007531E7 /* ImmersiveView.swift */,
 				0A5DF8D72BE0AACB007531E7 /* Assets.xcassets */,
 				0A5DF8DC2BE0AACB007531E7 /* Info.plist */,
 				0A5DF8D92BE0AACB007531E7 /* Preview Content */,
@@ -159,7 +156,6 @@
 			files = (
 				0A5DF8D42BE0AACA007531E7 /* ContentView.swift in Sources */,
 				0A5DF8D22BE0AACA007531E7 /* iOS_study_0514App.swift in Sources */,
-				0A5DF8D62BE0AACA007531E7 /* ImmersiveView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
