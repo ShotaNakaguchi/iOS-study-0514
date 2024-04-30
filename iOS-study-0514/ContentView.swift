@@ -26,9 +26,7 @@ struct ContentView: View {
                     content.add(scene)
                 }
             }
-
         }
-
     }
 }
 
